@@ -19,7 +19,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
             ""id"": ""02bd1582-28b5-493c-9be0-be795fac2225"",
             ""actions"": [
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Rewind"",
                     ""type"": ""Button"",
                     ""id"": ""bf6a70a6-2d60-4d95-9e75-0f5cfeb87389"",
                     ""expectedControlType"": ""Button"",
@@ -63,11 +63,11 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e89da407-177f-4608-91cc-1ce158832a8e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Rewind"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -166,7 +166,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_Rewind = m_Gameplay.FindAction("Rewind", throwIfNotFound: true);
         m_Gameplay_North = m_Gameplay.FindAction("North", throwIfNotFound: true);
         m_Gameplay_East = m_Gameplay.FindAction("East", throwIfNotFound: true);
         m_Gameplay_South = m_Gameplay.FindAction("South", throwIfNotFound: true);
@@ -220,7 +220,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
     // Gameplay
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
-    private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_Rewind;
     private readonly InputAction m_Gameplay_North;
     private readonly InputAction m_Gameplay_East;
     private readonly InputAction m_Gameplay_South;
@@ -229,7 +229,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
     {
         private @GameInputs m_Wrapper;
         public GameplayActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @Rewind => m_Wrapper.m_Gameplay_Rewind;
         public InputAction @North => m_Wrapper.m_Gameplay_North;
         public InputAction @East => m_Wrapper.m_Gameplay_East;
         public InputAction @South => m_Wrapper.m_Gameplay_South;
@@ -243,9 +243,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
             {
-                @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                @Rewind.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRewind;
+                @Rewind.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRewind;
+                @Rewind.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRewind;
                 @North.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNorth;
                 @North.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNorth;
                 @North.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNorth;
@@ -262,9 +262,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @Rewind.started += instance.OnRewind;
+                @Rewind.performed += instance.OnRewind;
+                @Rewind.canceled += instance.OnRewind;
                 @North.started += instance.OnNorth;
                 @North.performed += instance.OnNorth;
                 @North.canceled += instance.OnNorth;
@@ -283,7 +283,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
     public GameplayActions @Gameplay => new GameplayActions(this);
     public interface IGameplayActions
     {
-        void OnJump(InputAction.CallbackContext context);
+        void OnRewind(InputAction.CallbackContext context);
         void OnNorth(InputAction.CallbackContext context);
         void OnEast(InputAction.CallbackContext context);
         void OnSouth(InputAction.CallbackContext context);

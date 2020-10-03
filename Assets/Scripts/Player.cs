@@ -1,24 +1,49 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class Player : MonoBehaviour
+
+public class SerializedPlayer
+{
+    public float x;
+    public float y;
+
+    public SerializedPlayer(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+public class Player : Rewindable
 {
     private GameInputs _inputs;
 
     private Rigidbody2D rigidbody2D;
 
     // Start is called before the first frame update
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         rigidbody2D = GetComponent<Rigidbody2D>();
         _inputs = new GameInputs();
-        _inputs.Gameplay.Jump.performed += ctx => Jump();
+        _inputs.Gameplay.Rewind.performed += ctx => Rewind();
         _inputs.Gameplay.North.performed += ctx => MoveBy(Vector2Int.up);
         _inputs.Gameplay.East.performed += ctx => MoveBy(Vector2Int.right);
         _inputs.Gameplay.South.performed += ctx => MoveBy(Vector2Int.down);
         _inputs.Gameplay.West.performed += ctx => MoveBy(Vector2Int.left);
+    }
+
+    public override object save()
+    {
+        return new SerializedPlayer(rigidbody2D.position.x, rigidbody2D.position.y);
+    }
+
+    public override void loadFrom(object save)
+    {
+        if (save is SerializedPlayer deserialized)
+        {
+            rigidbody2D.position = new Vector2(deserialized.x, deserialized.y);
+        }
     }
 
     // Update is called once per frame
@@ -36,10 +61,9 @@ public class Player : MonoBehaviour
         _inputs.Gameplay.Disable();
     }
 
-    private void Jump()
+    private void Rewind()
     {
-        Debug.Log("Lol");
-        rigidbody2D.AddForce(new Vector2(0, 100));
+        RewindManager.Rewind();
     }
 
     private Vector2Int GetPosition()
@@ -60,7 +84,8 @@ public class Player : MonoBehaviour
     private void MoveTo(Vector2Int target)
     {
         //TODO: Animate this here
-        transform.position = new Vector3(target.x, target.y, transform.position.z);
+        rigidbody2D.position = new Vector3(target.x, target.y, transform.position.z);
+        RewindManager.SaveCurrentState();
     }
 
     private void MoveBy(Vector2Int delta)
