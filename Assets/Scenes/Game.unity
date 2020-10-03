@@ -134,9 +134,9 @@ GameObject:
   - component: {fileID: 96553861}
   - component: {fileID: 96553860}
   - component: {fileID: 96553859}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
-  m_TagString: obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -326,9 +326,9 @@ GameObject:
   - component: {fileID: 720622254}
   - component: {fileID: 720622256}
   - component: {fileID: 720622255}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: New Sprite
-  m_TagString: obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
