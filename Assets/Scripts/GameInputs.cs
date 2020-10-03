@@ -25,6 +25,38 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""North"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5f6b579-f26a-4b89-bb0b-8a1970606ded"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""East"",
+                    ""type"": ""Button"",
+                    ""id"": ""b62c7edc-ef5e-44db-9976-a236d47330b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""South"",
+                    ""type"": ""Button"",
+                    ""id"": ""be64db2f-ac7e-4706-a8b0-2b6e24e07868"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""West"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ddc772d-cebf-4cb1-953a-42ec8b875c5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -38,6 +70,94 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aff0dc6e-d3f3-4068-b3d0-02a3c90d38bc"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""North"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da15d750-e835-46b3-aed0-d836d6b8f4a9"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""North"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fc03b94-e143-47a6-afa3-1dc583d145a5"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""East"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e80903b1-f43c-4b41-941b-11b4c82cb47d"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""East"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42b1f6d0-63e4-49fb-8995-c9058f7eff85"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""South"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8a44e93-bdbd-4719-8cb4-5580032f402a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""South"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f3469cc-0b0f-4b9d-81dc-b34e14d12886"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""West"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56978b11-ea67-4a73-bc59-0255ac0fe55c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""West"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -47,6 +167,10 @@ public class @GameInputs : IInputActionCollection, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_North = m_Gameplay.FindAction("North", throwIfNotFound: true);
+        m_Gameplay_East = m_Gameplay.FindAction("East", throwIfNotFound: true);
+        m_Gameplay_South = m_Gameplay.FindAction("South", throwIfNotFound: true);
+        m_Gameplay_West = m_Gameplay.FindAction("West", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -97,11 +221,19 @@ public class @GameInputs : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_North;
+    private readonly InputAction m_Gameplay_East;
+    private readonly InputAction m_Gameplay_South;
+    private readonly InputAction m_Gameplay_West;
     public struct GameplayActions
     {
         private @GameInputs m_Wrapper;
         public GameplayActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @North => m_Wrapper.m_Gameplay_North;
+        public InputAction @East => m_Wrapper.m_Gameplay_East;
+        public InputAction @South => m_Wrapper.m_Gameplay_South;
+        public InputAction @West => m_Wrapper.m_Gameplay_West;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -114,6 +246,18 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                @North.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNorth;
+                @North.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNorth;
+                @North.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNorth;
+                @East.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEast;
+                @East.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEast;
+                @East.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEast;
+                @South.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSouth;
+                @South.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSouth;
+                @South.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSouth;
+                @West.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWest;
+                @West.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWest;
+                @West.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWest;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -121,6 +265,18 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @North.started += instance.OnNorth;
+                @North.performed += instance.OnNorth;
+                @North.canceled += instance.OnNorth;
+                @East.started += instance.OnEast;
+                @East.performed += instance.OnEast;
+                @East.canceled += instance.OnEast;
+                @South.started += instance.OnSouth;
+                @South.performed += instance.OnSouth;
+                @South.canceled += instance.OnSouth;
+                @West.started += instance.OnWest;
+                @West.performed += instance.OnWest;
+                @West.canceled += instance.OnWest;
             }
         }
     }
@@ -128,5 +284,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
     public interface IGameplayActions
     {
         void OnJump(InputAction.CallbackContext context);
+        void OnNorth(InputAction.CallbackContext context);
+        void OnEast(InputAction.CallbackContext context);
+        void OnSouth(InputAction.CallbackContext context);
+        void OnWest(InputAction.CallbackContext context);
     }
 }
