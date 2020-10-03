@@ -120,17 +120,20 @@ public abstract class Rewindable : MonoBehaviour
     private string id = "";
     private static long count = 0;
     public string prefabName;
-    private GameObject prefab;
+
+    protected GameObject prefab;
 
     protected virtual void Awake()
     {
         prefab = (GameObject) Resources.Load("Prefabs/" + prefabName);
-        if (id.Equals(""))
-        {
-            id = count.ToString();
-            count++;
-            RewindManager.Register(this);
-        }
+    }
+
+    protected virtual void Start()
+    { 
+        if (!id.Equals("")) return;
+        id = count.ToString();
+        count++;
+        RewindManager.Register(this);
     }
 
     private void OnDestroy()

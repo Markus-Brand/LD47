@@ -109,4 +109,8 @@ public class Player : Rewindable
             MoveTo(GetPosition() + delta);
         }
     }
+
+    public void AddKey()
+    {
+    }
 }
