@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -85,7 +86,20 @@ public class Player : Rewindable
     {
         //TODO: Animate this here
         rigidbody2D.position = new Vector3(target.x, target.y, transform.position.z);
+        Invoke(nameof(Save), 0.1f);
+    }
+
+    private void Save()
+    {
         RewindManager.SaveCurrentState();
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Items"))
+        {
+            Object.Destroy(other.gameObject);
+        }
     }
 
     private void MoveBy(Vector2Int delta)

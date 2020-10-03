@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -7,7 +8,7 @@ public class RewindManager : MonoBehaviour
 {
     public static Dictionary<string, Rewindable> ActiveObjects = new Dictionary<string, Rewindable>();
     public static List<string> NewlyAdded = new List<string>();
-    public static Dictionary<string, MonoBehaviour> NewlyRemoved = new Dictionary<string, MonoBehaviour>();
+    public static Dictionary<string, GameObject> NewlyRemoved = new Dictionary<string, GameObject>();
     
     private static List<State> _states = new List<State>();
     public Rewindable[] RegisterOnStartup;
@@ -35,7 +36,7 @@ public class RewindManager : MonoBehaviour
     }
 
 
-    public static void Remove(string id, MonoBehaviour prefab)
+    public static void Remove(string id, GameObject prefab)
     {
         if(!ActiveObjects.ContainsKey(id)) return;
         ActiveObjects.Remove(id);
@@ -46,7 +47,7 @@ public class RewindManager : MonoBehaviour
     {
         _states.Add(State.Create(ActiveObjects, NewlyAdded, NewlyRemoved));
         NewlyAdded = new List<string>();
-        NewlyRemoved = new Dictionary<string, MonoBehaviour>();
+        NewlyRemoved = new Dictionary<string, GameObject>();
     }
 
     public static void Rewind()
@@ -61,10 +62,10 @@ public class State
 {
     private readonly Dictionary<string, object> _saveState;
     private readonly IEnumerable<string> _newObjects;
-    private readonly Dictionary<string, MonoBehaviour> _removedObjects;
+    private readonly Dictionary<string, GameObject> _removedObjects;
 
     private State(Dictionary<string, object> state, IEnumerable<string> newObjects,
-        Dictionary<string, MonoBehaviour> removedObjects)
+        Dictionary<string, GameObject> removedObjects)
     {
         _saveState = state;
         _newObjects = newObjects;
@@ -100,7 +101,7 @@ public class State
     }
 
     public static State Create(Dictionary<string, Rewindable> activeObjects, IEnumerable<string> newObjects,
-        Dictionary<string, MonoBehaviour> removedObjects)
+        Dictionary<string, GameObject> removedObjects)
     {
         var state = new Dictionary<string, object>();
         foreach (var activeObject in activeObjects)
@@ -118,9 +119,12 @@ public abstract class Rewindable : MonoBehaviour
 {
     private string id = "";
     private static long count = 0;
+    public string prefabName;
+    private GameObject prefab;
 
     protected virtual void Awake()
     {
+        prefab = (GameObject) Resources.Load("Prefabs/" + prefabName);
         if (id.Equals(""))
         {
             id = count.ToString();
@@ -131,7 +135,7 @@ public abstract class Rewindable : MonoBehaviour
 
     private void OnDestroy()
     {
-        RewindManager.Remove(getId(), this);
+        RewindManager.Remove(getId(), prefab);
     }
 
     public void setId(string id)
