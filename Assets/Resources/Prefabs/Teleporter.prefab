@@ -258,7 +258,8 @@ GameObject:
   - component: {fileID: 1236617306334192300}
   - component: {fileID: 401966824025430662}
   - component: {fileID: 446629961182318333}
-  - component: {fileID: 8355592412831375573}
+  - component: {fileID: 6181787933607574243}
+  - component: {fileID: 2029621158020751316}
   m_Layer: 0
   m_Name: Teleporter
   m_TagString: Untagged
@@ -346,7 +347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298edbb8f79e53d498df7b593e733db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabName: 
+  prefabName: Teleporter
+  active: 0
+  loopingDestinationPosition: {x: 0, y: 0}
+  activeDestinationPosition: {x: 0, y: 0}
 --- !u!61 &446629961182318333
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -373,19 +377,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!111 &8355592412831375573
-Animation:
+--- !u!114 &6181787933607574243
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8683867759401254191}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298edbb8f79e53d498df7b593e733db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Teleporter
+  active: 0
+  loopingDestinationPosition: {x: 0, y: 0}
+  activeDestinationPosition: {x: 0, y: 0}
+--- !u!95 &2029621158020751316
+Animator:
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: fa8139e657be9784aa669d713b04779c, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: fa8139e657be9784aa669d713b04779c, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8683867759401254191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4b00eb9b473f3604984f9e77ad0e2a53, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

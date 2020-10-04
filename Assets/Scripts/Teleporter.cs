@@ -4,38 +4,48 @@ using UnityEngine;
 
 public class Teleporter : Rewindable
 {
+    public bool active;
+    public Vector2 loopingDestinationPosition;
+    public Vector2 activeDestinationPosition;
+    private Animator _animator;
+    private static readonly int Active = Animator.StringToHash("Active");
+
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _animator = GetComponent<Animator>();
+        _animator.SetBool(Active, active);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.HasComponent(out Player player))
         {
-            Teleport();
+            player.TeleportTo(active ? activeDestinationPosition : loopingDestinationPosition);
         };
     }
 
-    private void Teleport()
+    public void Activate()
     {
-        throw new NotImplementedException();
+        active = true;
+        _animator.SetBool(Active, active);
     }
 
-    public override void loadFrom(object pairValue)
+    public void Deactivate()
     {
-        throw new System.NotImplementedException();
+        active = false;
+        _animator.SetBool(Active, active);
+    }
+    
+    public override void loadFrom(object active)
+    {
+        this.active = (bool) active;
+        _animator.SetBool(Active, this.active);
     }
 
     public override object save()
     {
-        throw new System.NotImplementedException();
+        return active;
     }
 }

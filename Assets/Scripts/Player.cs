@@ -85,7 +85,7 @@ public class Player : Rewindable
     private void MoveTo(Vector2Int target)
     {
         //TODO: Animate this here
-        rigidbody2D.position = new Vector3(target.x, target.y, transform.position.z);
+        rigidbody2D.position = new Vector3(target.x, target.y, 0);
         Invoke(nameof(Save), 0.1f);
     }
 
@@ -112,5 +112,11 @@ public class Player : Rewindable
 
     public void AddKey()
     {
+    }
+
+    public void TeleportTo(Vector2 destinationPosition)
+    {
+        rigidbody2D.position = new Vector3(destinationPosition.x, destinationPosition.y, 0);
+        Invoke(nameof(Save), 0.1f);
     }
 }
