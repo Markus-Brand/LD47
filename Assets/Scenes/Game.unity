@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b406e68773137bf8437737b84cc879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followed: {fileID: 0}
+  followed: {fileID: 884279557}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
