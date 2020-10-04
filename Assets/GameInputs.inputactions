@@ -50,7 +50,7 @@
                 {
                     "name": "",
                     "id": "e89da407-177f-4608-91cc-1ce158832a8e",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -82,6 +82,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8c8dca17-454f-458e-903d-822a92841fbd",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "North",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3fc03b94-e143-47a6-afa3-1dc583d145a5",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
@@ -95,6 +106,17 @@
                     "name": "",
                     "id": "e80903b1-f43c-4b41-941b-11b4c82cb47d",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "East",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9749c193-d2c1-4dd0-9bc8-7946ede10932",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -126,6 +148,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bfe682b9-e628-48d5-9a0c-55320c52f4ff",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "South",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3f3469cc-0b0f-4b9d-81dc-b34e14d12886",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
@@ -139,6 +172,17 @@
                     "name": "",
                     "id": "56978b11-ea67-4a73-bc59-0255ac0fe55c",
                     "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "West",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "330c4ea5-f061-4d2f-957e-f7b3ce2752ca",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
