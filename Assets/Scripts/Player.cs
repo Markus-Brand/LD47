@@ -40,14 +40,14 @@ public class Player : Rewindable
 
     public override object save()
     {
-        return new SerializedPlayer(rigidbody2D.position.x, rigidbody2D.position.y, transform.rotation.eulerAngles.z);
+        return new SerializedPlayer(transform.position.x, transform.position.y, transform.rotation.eulerAngles.z);
     }
 
     public override void loadFrom(object save)
     {
         if (save is SerializedPlayer deserialized)
         {
-            rigidbody2D.position = new Vector2(deserialized.x, deserialized.y);
+            transform.position = new Vector2(deserialized.x, deserialized.y);
             transform.rotation = Quaternion.Euler(0, 0, deserialized.rotation);
         }
     }
@@ -90,7 +90,7 @@ public class Player : Rewindable
     private void MoveTo(Vector2Int target)
     {
         //TODO: Animate this here
-        rigidbody2D.position = new Vector3(target.x, target.y, 0);
+        transform.position = new Vector3(target.x, target.y, 0);
         Invoke(nameof(Save), 0.1f);
     }
 
@@ -116,7 +116,7 @@ public class Player : Rewindable
 
     public void TeleportTo(Vector2 destinationPosition)
     {
-        rigidbody2D.position = new Vector3(destinationPosition.x, destinationPosition.y, 0);
+        transform.position = new Vector3(destinationPosition.x, destinationPosition.y, 0);
         Invoke(nameof(Save), 0.1f);
     }
 }
