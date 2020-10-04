@@ -7,6 +7,7 @@ public class Blockade : Rewindable
     public bool InvertedFromComposite;
     
     private SpriteRenderer _renderer;
+    private Collider2D _collider;
 
     public void SetSprite(bool lowered)
     {
@@ -14,8 +15,10 @@ public class Blockade : Rewindable
         if (!_renderer)
         {
             _renderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<Collider2D>();
         }
         _renderer.sprite = state ? LowSprite : HighSprite;
+        _collider.enabled = !state;
     }
 
     public void SetColor(Color color)
