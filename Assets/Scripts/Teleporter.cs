@@ -7,9 +7,9 @@ public class Teleporter : Rewindable
 {
     public bool active;
     public Vector2 loopingDestinationPosition;
-    public Vector2 activeDestinationPosition;
+   
     public GameObject activeTarget;
-    public GameObject loopingTarget;
+  
     private Animator _animator;
     private static readonly int Active = Animator.StringToHash("Active");
 
@@ -33,8 +33,8 @@ public class Teleporter : Rewindable
 
     private Vector2 GetTargetPosition()
     {
-        var transformPosition = active ? activeTarget.transform.position : loopingTarget.transform.position;
-        return new Vector2((float) Math.Round(transformPosition.x), (float) Math.Round(transformPosition.y));
+        var transformPosition = activeTarget.transform.position;
+        return active ? new Vector2((float) Math.Round(transformPosition.x), (float) Math.Round(transformPosition.y)) : loopingDestinationPosition;
     }
 
     public void Activate()
