@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using DefaultNamespace;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 
 public class SerializedPlayer
