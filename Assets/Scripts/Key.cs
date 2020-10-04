@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Key : Rewindable
 {
-    public override void loadFrom(object position)
+    public override void loadFrom(object lowered)
     {
-        transform.position = (Vector3) position;
+        transform.position = (Vector3) lowered;
     }
 
     public override object save()

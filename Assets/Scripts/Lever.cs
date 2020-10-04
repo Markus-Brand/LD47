@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Lever : Rewindable
 {
-    private bool on;
+    public bool on;
 
     private Animator _animator;
     private static readonly int On = Animator.StringToHash("On");
@@ -41,9 +41,9 @@ public class Lever : Rewindable
     }
 
 
-    public override void loadFrom(object on)
+    public override void loadFrom(object lowered)
     {
-        this.on = (bool) on;
+        this.on = (bool) lowered;
         _animator.SetBool(On, this.on);
     }
 

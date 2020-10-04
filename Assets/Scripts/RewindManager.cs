@@ -162,7 +162,7 @@ public abstract class Rewindable : MonoBehaviour
         return id;
     }
 
-    public abstract void loadFrom(object pairValue);
+    public abstract void loadFrom(object lowered);
 
     public abstract object save();
     

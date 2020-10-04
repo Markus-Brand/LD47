@@ -43,9 +43,9 @@ public class Player : Rewindable
         return new SerializedPlayer(transform.position.x, transform.position.y, transform.rotation.eulerAngles.z);
     }
 
-    public override void loadFrom(object save)
+    public override void loadFrom(object lowered)
     {
-        if (save is SerializedPlayer deserialized)
+        if (lowered is SerializedPlayer deserialized)
         {
             transform.position = new Vector2(deserialized.x, deserialized.y);
             transform.rotation = Quaternion.Euler(0, 0, deserialized.rotation);
