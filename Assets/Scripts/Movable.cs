@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class SerializedMoveable
 {
@@ -13,10 +14,14 @@ public class SerializedMoveable
 
 public class Movable : Rewindable
 {
+
+    public AudioSource sound;
+    
     public override void loadFrom(object lowered)
     {
         if (lowered is SerializedMoveable deserialized)
         {
+            if (deserialized.position != GetPosition()) sound.Play();
             transform.position = new Vector3(deserialized.position.x, deserialized.position.y);
         }
     }
@@ -46,6 +51,7 @@ public class Movable : Rewindable
     public bool Push(Vector2Int direction)
     {
         if (!CanMoveTo(GetPosition() + direction)) return false;
+        sound.Play();
         MoveTo(GetPosition() + direction);
         return true;
     }
