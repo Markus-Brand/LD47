@@ -42,3 +42,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Floor
+    uniqueID: 3692382423
+    locked: 0
+  - name: Objects
+    uniqueID: 2500844555
+    locked: 0
+  - name: Player
+    uniqueID: 1042448445
+    locked: 0
+  - name: Obstacle
+    uniqueID: 4192160261
+    locked: 0
+  - name: Particles
+    uniqueID: 2553286037
+    locked: 0
+  - name: Wall
+    uniqueID: 2636999553
+    locked: 0
