@@ -15,6 +15,18 @@ namespace DefaultNamespace
             var result = obj.GetComponent<T>();
             return result != null;
         }
+        
+        
+        public static Quaternion AsZRotation(this Vector2 vector, float offset = 0)
+        {
+            return Quaternion.Euler(0, 0, 180.0f / Mathf.PI * Mathf.Atan2(vector.y, vector.x) + offset);
+        }
+        
+        
+        public static Quaternion AsZRotation(this Vector2Int vector, float offset = 0)
+        {
+            return Quaternion.Euler(0, 0, 180.0f / Mathf.PI * Mathf.Atan2(vector.y, vector.x) + offset);
+        }
 
     }
 }

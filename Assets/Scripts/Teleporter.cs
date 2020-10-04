@@ -11,7 +11,7 @@ public class Teleporter : Rewindable
     private static readonly int Active = Animator.StringToHash("Active");
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         base.Start();
         _animator = GetComponent<Animator>();
@@ -20,8 +20,10 @@ public class Teleporter : Rewindable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(_rewinding) return;
         if(other.gameObject.HasComponent(out Player player))
         {
+            Debug.Log("Teleport");
             player.TeleportTo(active ? activeDestinationPosition : loopingDestinationPosition);
         };
     }
@@ -47,5 +49,15 @@ public class Teleporter : Rewindable
     public override object save()
     {
         return active;
+    }
+
+    public override void LeverOn()
+    {
+        Activate();
+    }
+
+    public override void LeverOff()
+    {
+        Deactivate();
     }
 }

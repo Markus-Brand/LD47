@@ -15,6 +15,7 @@ public class Key : Rewindable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(_rewinding) return;
         if(other.gameObject.HasComponent(out Player player))
         {
             player.AddKey();

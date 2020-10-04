@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using DefaultNamespace;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,10 +10,13 @@ public class SerializedPlayer
     public float x;
     public float y;
 
-    public SerializedPlayer(float x, float y)
+    public float rotation;
+
+    public SerializedPlayer(float x, float y, float rotation)
     {
         this.x = x;
         this.y = y;
+        this.rotation = rotation;
     }
 }
 public class Player : Rewindable
@@ -36,7 +40,7 @@ public class Player : Rewindable
 
     public override object save()
     {
-        return new SerializedPlayer(rigidbody2D.position.x, rigidbody2D.position.y);
+        return new SerializedPlayer(rigidbody2D.position.x, rigidbody2D.position.y, transform.rotation.eulerAngles.z);
     }
 
     public override void loadFrom(object save)
@@ -44,6 +48,7 @@ public class Player : Rewindable
         if (save is SerializedPlayer deserialized)
         {
             rigidbody2D.position = new Vector2(deserialized.x, deserialized.y);
+            transform.rotation = Quaternion.Euler(0, 0, deserialized.rotation);
         }
     }
 
@@ -94,13 +99,6 @@ public class Player : Rewindable
         RewindManager.SaveCurrentState();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Items"))
-        {
-            Object.Destroy(other.gameObject);
-        }
-    }
 
     private void MoveBy(Vector2Int delta)
     {
@@ -108,6 +106,8 @@ public class Player : Rewindable
         {
             MoveTo(GetPosition() + delta);
         }
+
+        transform.rotation = delta.AsZRotation(-90);
     }
 
     public void AddKey()

@@ -1,39 +1,54 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
 public class Lever : Rewindable
 {
     private bool on;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private Animator _animator;
+    private static readonly int On = Animator.StringToHash("On");
+
+    public Rewindable[] Toggled;
+
+    // Start is called before the first frame update
+    protected override void Start()
     {
-        
+        base.Start();
+        _animator = GetComponent<Animator>();
+        _animator.SetBool(On, on);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(_rewinding) return;
         if(other.gameObject.HasComponent(out Player player))
         {
-            
+            on = !on;
+            foreach (var t in Toggled)
+            {
+                if (on)
+                {
+                    t.LeverOn();
+                }
+                else
+                {
+                    t.LeverOff();
+                }
+            }
+            _animator.SetBool(On, on);
         };
     }
 
 
-    public override void loadFrom(object pairValue)
+    public override void loadFrom(object on)
     {
-        throw new System.NotImplementedException();
+        this.on = (bool) on;
+        _animator.SetBool(On, this.on);
     }
 
     public override object save()
     {
-        throw new System.NotImplementedException();
+        return on;
     }
 }

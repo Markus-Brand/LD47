@@ -52,9 +52,19 @@ public class RewindManager : MonoBehaviour
 
     public static void Rewind()
     {
+        if(_states.Count <= 1) return;
+        foreach (var keyValuePair in ActiveObjects)
+        {
+            keyValuePair.Value.StartRewinding();
+        }
         _states[_states.Count - 1].revert(ActiveObjects);
         _states.RemoveAt(_states.Count - 1);
         _states[_states.Count - 1].apply(ActiveObjects);
+        
+        foreach (var keyValuePair in ActiveObjects)
+        {
+            keyValuePair.Value.Invoke(nameof(Rewindable.StopRewinding), 0.2f);
+        }
     }
 }
 
@@ -122,6 +132,7 @@ public abstract class Rewindable : MonoBehaviour
     public string prefabName;
 
     protected GameObject prefab;
+    protected bool _rewinding;
 
     protected virtual void Awake()
     {
@@ -154,4 +165,25 @@ public abstract class Rewindable : MonoBehaviour
     public abstract void loadFrom(object pairValue);
 
     public abstract object save();
+    
+    public void StartRewinding()
+    {
+        _rewinding = true;
+    }
+
+    public void StopRewinding()
+    {
+        _rewinding = false;
+    }
+
+
+    public virtual void LeverOn()
+    {
+        
+    }
+
+    public virtual void LeverOff()
+    {
+        
+    }
 }
