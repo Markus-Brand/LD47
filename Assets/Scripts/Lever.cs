@@ -7,6 +7,10 @@ public class Lever : Rewindable
     public bool on;
     public AudioSource sound;
 
+    public SpriteRenderer Knob;
+    public SpriteRenderer ColorDisplay;
+    public Color color;
+    
     private Animator _animator;
     private static readonly int On = Animator.StringToHash("On");
 
@@ -18,6 +22,8 @@ public class Lever : Rewindable
         base.Start();
         _animator = GetComponent<Animator>();
         _animator.SetBool(On, on);
+        Knob.color = color;
+        ColorDisplay.color = color;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

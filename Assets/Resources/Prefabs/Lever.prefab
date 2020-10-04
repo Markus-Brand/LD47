@@ -104,6 +104,9 @@ MonoBehaviour:
   prefabName: Lever
   on: 0
   sound: {fileID: 1231105836706912792}
+  Knob: {fileID: 4300593534574332024}
+  ColorDisplay: {fileID: 4300593534231061114}
+  color: {r: 0, g: 0, b: 0, a: 0}
   Toggled: []
 --- !u!95 &6140864196446706333
 Animator:
