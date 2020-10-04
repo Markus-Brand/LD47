@@ -90,12 +90,16 @@ public class Player : Rewindable
         return new Vector2Int((int) Math.Round(transform.position.x), (int) Math.Round(transform.position.y));
     }
 
-    private bool CanMoveTo(Vector2Int target)
+    private bool CanMoveTo(Vector2Int target, Vector2Int direction)
     {
         var results = Physics2D.OverlapBoxAll(target, new Vector2(0.95f, 0.95f), 0.0f);
         for (int i = 0; i < results.Length; i++)
         {
             if (results[i].gameObject.layer == LayerMask.NameToLayer("Obstacle")) return false;
+            if (results[i].gameObject.HasComponent(out Movable movable))
+            {
+                if (!movable.Push(direction)) return false;
+            }
         }
         return true;
     }
@@ -115,7 +119,7 @@ public class Player : Rewindable
 
     private void MoveBy(Vector2Int delta)
     {
-        if (CanMoveTo(GetPosition() + delta))
+        if (CanMoveTo(GetPosition() + delta, delta))
         {
             MoveTo(GetPosition() + delta);
         }
