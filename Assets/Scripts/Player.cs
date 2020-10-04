@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class Player : Rewindable
     private GameInputs _inputs;
 
     private Rigidbody2D rigidbody2D;
+    private Coroutine rewinding;
 
     // Start is called before the first frame update
     protected override void Awake()
@@ -29,7 +31,8 @@ public class Player : Rewindable
         base.Awake();
         rigidbody2D = GetComponent<Rigidbody2D>();
         _inputs = new GameInputs();
-        _inputs.Gameplay.Rewind.performed += ctx => Rewind();
+        _inputs.Gameplay.Rewind.started += ctx => rewinding = StartCoroutine(nameof(repeatedlyRewind));
+        _inputs.Gameplay.Rewind.canceled += ctx => StopCoroutine(rewinding);
         _inputs.Gameplay.North.performed += ctx => MoveBy(Vector2Int.up);
         _inputs.Gameplay.East.performed += ctx => MoveBy(Vector2Int.right);
         _inputs.Gameplay.South.performed += ctx => MoveBy(Vector2Int.down);
@@ -68,6 +71,18 @@ public class Player : Rewindable
     private void Rewind()
     {
         RewindManager.Rewind();
+    }
+
+    private IEnumerator repeatedlyRewind()
+    {
+        RewindManager.Rewind();
+        yield return new WaitForSeconds(1.0f);
+        RewindManager.Rewind();
+        for(var i = 1.0f;; i /= 2)
+        {
+            yield return new WaitForSeconds(Math.Max(0.1f, i));
+            RewindManager.Rewind();
+        }
     }
 
     private Vector2Int GetPosition()
