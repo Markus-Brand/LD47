@@ -5,6 +5,7 @@ using UnityEngine;
 public class Lever : Rewindable
 {
     public bool on;
+    public AudioSource sound;
 
     private Animator _animator;
     private static readonly int On = Animator.StringToHash("On");
@@ -36,6 +37,7 @@ public class Lever : Rewindable
                     t.LeverOff();
                 }
             }
+            sound.Play();
             _animator.SetBool(On, on);
         };
     }
@@ -43,8 +45,10 @@ public class Lever : Rewindable
 
     public override void loadFrom(object lowered)
     {
-        this.on = (bool) lowered;
-        _animator.SetBool(On, this.on);
+        var newState = (bool) lowered;
+        if (newState != on) sound.Play();
+        on = newState;
+        _animator.SetBool(On, on);
     }
 
     public override object save()
