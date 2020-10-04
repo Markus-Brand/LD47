@@ -15,6 +15,12 @@ public class Follow : MonoBehaviour
     void Update()
     {
         var destinationPosition = followed.transform.position + Vector3.back * 20;
-        transform.position += (destinationPosition - transform.position) * Time.deltaTime * 5;
+        var difference = destinationPosition - transform.position;
+        if (difference.sqrMagnitude > 0.2)
+        {
+            transform.position += difference * Time.deltaTime * 3;
+            
+        }
+
     }
 }
