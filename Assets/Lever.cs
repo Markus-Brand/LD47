@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 public class Lever : Rewindable
 {
+    private bool on;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,15 @@ public class Lever : Rewindable
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.HasComponent(out Player player))
+        {
+            
+        };
+    }
+
 
     public override void loadFrom(object pairValue)
     {
