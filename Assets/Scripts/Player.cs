@@ -147,7 +147,11 @@ public class Player : Rewindable
             }
             if (results[i].gameObject.HasComponent(out Lock locke))
             {
-                if (keys.Contains(locke.GetKeyId())) locke.OpenSesame();
+                if (keys.Contains(locke.GetKeyId()))
+                {
+                    unlockSound.Play();
+                    locke.OpenSesame();
+                }
                 return false;
             }
         }
