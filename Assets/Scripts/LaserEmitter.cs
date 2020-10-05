@@ -72,12 +72,12 @@ public class LaserEmitter : Rewindable
     private bool isPositionFree(Vector2Int position)
     {
         var results = Physics2D.OverlapBoxAll(position, new Vector2(0.95f, 0.95f), 0.0f);
-        return results.Count(r => !r.isTrigger) == 0;
+        return results.Count(r => !r.isTrigger && r.gameObject != this.gameObject) == 0;
     }
 
     public override void loadFrom(object laserDirections)
     {
-        RebuildWithDirections((string) laserDirections);
+        //RebuildWithDirections((string) laserDirections);
     }
 
     private void RebuildWithDirections(string laserDirections)
