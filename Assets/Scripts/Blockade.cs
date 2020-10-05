@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DefaultNamespace;
+using UnityEngine;
 
 public class Blockade : Rewindable
 {
@@ -33,6 +34,15 @@ public class Blockade : Rewindable
         _renderer.sortingLayerID = state ? floorSortingLayer : objectsSortingLayer;
         pistonRenderer.enabled = !state;
         _collider.enabled = !state;
+        var results = Physics2D.OverlapBoxAll(transform.position, new Vector2(0.95f, 0.95f), 0.0f);
+        foreach (var result in results)
+        {
+            if (result.gameObject.HasComponent(out Laser laser))
+            {
+                laser.Emitter.ShootLaser();
+            }
+        }
+            
     }
 
     public void SetColor(Color color)

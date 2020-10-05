@@ -39,7 +39,7 @@ public class LaserEmitter : Rewindable
     {
         base.Start();
         _laserDirection = transform.rotation.eulerAngles.z.MainDirection();
-        ShootLaser();
+        Invoke(nameof(ShootLaser), 0.01f);
     }
 
     public void ShootLaser()
