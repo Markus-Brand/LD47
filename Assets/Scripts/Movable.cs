@@ -22,7 +22,6 @@ public class Movable : Rewindable
     {
         if (lowered is SerializedMoveable deserialized)
         {
-            if (deserialized.position != GetPosition()) sound.Play();
             transform.position = new Vector3(deserialized.position.x, deserialized.position.y);
         }
     }

@@ -29,6 +29,10 @@ public class Teleporter : Rewindable
         {
             Debug.Log("Teleport");
             teleportSound.Play();
+            if (!active)
+            {
+                MusicPlayer.Instance.restart();
+            }
             player.TeleportTo(GetTargetPosition());
         };
     }
