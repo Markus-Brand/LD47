@@ -57,6 +57,14 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f4b5050-7a36-4acd-a773-e11a1423d0fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,6 +166,17 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""action"": ""West"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47c05a49-d649-4299-93ee-4b0251640cef"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -171,6 +190,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         m_Gameplay_East = m_Gameplay.FindAction("East", throwIfNotFound: true);
         m_Gameplay_South = m_Gameplay.FindAction("South", throwIfNotFound: true);
         m_Gameplay_West = m_Gameplay.FindAction("West", throwIfNotFound: true);
+        m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -225,6 +245,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_East;
     private readonly InputAction m_Gameplay_South;
     private readonly InputAction m_Gameplay_West;
+    private readonly InputAction m_Gameplay_Escape;
     public struct GameplayActions
     {
         private @GameInputs m_Wrapper;
@@ -234,6 +255,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         public InputAction @East => m_Wrapper.m_Gameplay_East;
         public InputAction @South => m_Wrapper.m_Gameplay_South;
         public InputAction @West => m_Wrapper.m_Gameplay_West;
+        public InputAction @Escape => m_Wrapper.m_Gameplay_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +280,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @West.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWest;
                 @West.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWest;
                 @West.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWest;
+                @Escape.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -277,6 +302,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @West.started += instance.OnWest;
                 @West.performed += instance.OnWest;
                 @West.canceled += instance.OnWest;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -288,5 +316,6 @@ public class @GameInputs : IInputActionCollection, IDisposable
         void OnEast(InputAction.CallbackContext context);
         void OnSouth(InputAction.CallbackContext context);
         void OnWest(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

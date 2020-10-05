@@ -36,6 +36,8 @@ public class Player : Rewindable
     public AudioSource keySound;
     public AudioSource unlockSound;
     public AudioSource rewindSound;
+
+    public Escape Escape;
     
     // Start is called before the first frame update
     protected override void Awake()
@@ -57,6 +59,8 @@ public class Player : Rewindable
         _inputs.Gameplay.South.canceled += ctx => moveDirection -= Vector2Int.down;
         _inputs.Gameplay.West.started += ctx => moveDirection += Vector2Int.left;
         _inputs.Gameplay.West.canceled += ctx => moveDirection -= Vector2Int.left;
+
+        _inputs.Gameplay.Escape.performed += ctx => Escape.StartEscaping();
     }
 
     private void HideRewindScreen()
