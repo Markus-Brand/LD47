@@ -20,6 +20,7 @@ public class SerializedPlayer
 }
 public class Player : Rewindable
 {
+    public GameObject RewindScreen;
     private GameInputs _inputs;
 
     private Rigidbody2D rigidbody2D;
@@ -32,11 +33,20 @@ public class Player : Rewindable
         rigidbody2D = GetComponent<Rigidbody2D>();
         _inputs = new GameInputs();
         _inputs.Gameplay.Rewind.started += ctx => rewinding = StartCoroutine(nameof(repeatedlyRewind));
-        _inputs.Gameplay.Rewind.canceled += ctx => StopCoroutine(rewinding);
+        _inputs.Gameplay.Rewind.canceled += ctx =>
+        {
+            HideRewindScreen();
+            StopCoroutine(rewinding);
+        };
         _inputs.Gameplay.North.performed += ctx => MoveBy(Vector2Int.up);
         _inputs.Gameplay.East.performed += ctx => MoveBy(Vector2Int.right);
         _inputs.Gameplay.South.performed += ctx => MoveBy(Vector2Int.down);
         _inputs.Gameplay.West.performed += ctx => MoveBy(Vector2Int.left);
+    }
+
+    private void HideRewindScreen()
+    {
+        RewindScreen.SetActive(false);
     }
 
     public override object save()
@@ -75,12 +85,15 @@ public class Player : Rewindable
 
     private IEnumerator repeatedlyRewind()
     {
+        RewindScreen.SetActive(true);
+
         RewindManager.Rewind();
-        yield return new WaitForSeconds(1.0f);
-        RewindManager.Rewind();
-        for(var i = 1.0f;; i /= 2)
+        float x = 1;
+        while (true)
         {
-            yield return new WaitForSeconds(Math.Max(0.1f, i));
+            float waitTime = (float) (0.5 / Math.Sqrt(4 * x));
+            yield return new WaitForSeconds(waitTime);
+            x += waitTime;
             RewindManager.Rewind();
         }
     }
