@@ -87,7 +87,7 @@ public class Player : Rewindable
             if (timeToNextMove < 0)
             {
                 MoveBy(actualMoveDirection);
-                timeToNextMove = 0.2f;
+                timeToNextMove = 0.15f;
             }
         }
         else
