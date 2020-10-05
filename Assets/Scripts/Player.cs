@@ -26,6 +26,8 @@ public class Player : Rewindable
     private Rigidbody2D rigidbody2D;
     private Coroutine rewinding;
 
+    private Vector2Int moveDirection;
+    
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -38,10 +40,14 @@ public class Player : Rewindable
             HideRewindScreen();
             StopCoroutine(rewinding);
         };
-        _inputs.Gameplay.North.performed += ctx => MoveBy(Vector2Int.up);
-        _inputs.Gameplay.East.performed += ctx => MoveBy(Vector2Int.right);
-        _inputs.Gameplay.South.performed += ctx => MoveBy(Vector2Int.down);
-        _inputs.Gameplay.West.performed += ctx => MoveBy(Vector2Int.left);
+        _inputs.Gameplay.North.started += ctx => moveDirection += Vector2Int.up;
+        _inputs.Gameplay.North.canceled += ctx => moveDirection -= Vector2Int.up;
+        _inputs.Gameplay.East.started += ctx => moveDirection += Vector2Int.right;
+        _inputs.Gameplay.East.canceled += ctx => moveDirection -= Vector2Int.right;
+        _inputs.Gameplay.South.started += ctx => moveDirection += Vector2Int.down;
+        _inputs.Gameplay.South.canceled += ctx => moveDirection -= Vector2Int.down;
+        _inputs.Gameplay.West.started += ctx => moveDirection += Vector2Int.left;
+        _inputs.Gameplay.West.canceled += ctx => moveDirection -= Vector2Int.left;
     }
 
     private void HideRewindScreen()
@@ -63,9 +69,25 @@ public class Player : Rewindable
         }
     }
 
+    private float timeToNextMove = 0;
     // Update is called once per frame
     void Update()
     {
+        timeToNextMove -= Time.deltaTime;
+        if (moveDirection.sqrMagnitude != 0)
+        {
+            var actualMoveDirection =
+                moveDirection.sqrMagnitude > 1 ? new Vector2Int(moveDirection.x, 0) : moveDirection;
+            if (timeToNextMove < 0)
+            {
+                MoveBy(actualMoveDirection);
+                timeToNextMove = 0.2f;
+            }
+        }
+        else
+        {
+            timeToNextMove = 0;
+        }
     }
 
     private void OnEnable()
