@@ -10,6 +10,7 @@ public class Button : Rewindable
     public int Number;
     public Sprite[] NumberSprites;
     public Sprite ButtonPressedSprite;
+    private Sprite ButtonOpenSprite;
 
     private SpriteRenderer buttonTop;
 
@@ -21,6 +22,7 @@ public class Button : Rewindable
         base.Start();
         NumberRenderer.sprite = NumberSprites[Number - 1];
         buttonTop = GetComponent<SpriteRenderer>();
+        ButtonOpenSprite = buttonTop.sprite;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,6 +46,7 @@ public class Button : Rewindable
     {
         var newState = (bool) lowered;
         pressed = newState;
+        buttonTop.sprite = pressed ? ButtonPressedSprite : ButtonOpenSprite;
     }
 
     public override object save()
