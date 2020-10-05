@@ -2947,6 +2947,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockadeComposite white r4
       objectReference: {fileID: 0}
+    - target: {fileID: 5318437013503560152, guid: d2f13d5069056214d894a53dacb61115, type: 3}
+      propertyPath: color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318437013503560152, guid: d2f13d5069056214d894a53dacb61115, type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318437013503560152, guid: d2f13d5069056214d894a53dacb61115, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318437013503560152, guid: d2f13d5069056214d894a53dacb61115, type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2f13d5069056214d894a53dacb61115, type: 3}
 --- !u!4 &672465253 stripped
@@ -3239,9 +3255,17 @@ PrefabInstance:
       value: Button To Room 5
       objectReference: {fileID: 0}
     - target: {fileID: 3470370210891587383, guid: b4be1f4a0fe6ea947b076442519c3c41, type: 3}
+      propertyPath: Affected.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470370210891587383, guid: b4be1f4a0fe6ea947b076442519c3c41, type: 3}
       propertyPath: Number
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3470370210891587383, guid: b4be1f4a0fe6ea947b076442519c3c41, type: 3}
+      propertyPath: Affected.Array.data[0]
+      value: 
+      objectReference: {fileID: 1990547140}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4be1f4a0fe6ea947b076442519c3c41, type: 3}
 --- !u!1001 &705357913
@@ -61433,7 +61457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8149310510183314735, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
       propertyPath: InvertedFromComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
@@ -69853,7 +69877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8149310510183314735, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
       propertyPath: InvertedFromComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
@@ -69980,7 +70004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8149310510183314735, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
       propertyPath: InvertedFromComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
@@ -70508,7 +70532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8149310510183314735, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
       propertyPath: InvertedFromComposite
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2af509cdfedd4d409fa715d3e6839c8, type: 3}
@@ -71214,6 +71238,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7840f30fd8834dfd9153ee4eb6d14ff, type: 3}
+--- !u!114 &1990547140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 401966824025430662, guid: ca42250665efa214695063f4c12e7365, type: 3}
+  m_PrefabInstance: {fileID: 59121539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298edbb8f79e53d498df7b593e733db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2012289675
 PrefabInstance:
   m_ObjectHideFlags: 0
