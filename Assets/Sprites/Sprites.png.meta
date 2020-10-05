@@ -131,6 +131,9 @@ TextureImporter:
   - first:
       213: 6114485935416625835
     second: Keyblock_Highlight
+  - first:
+      213: 1983006174369966622
+    second: Instructions
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1124,7 +1127,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1132,6 +1135,27 @@ TextureImporter:
       bones: []
       spriteID: baa41a4ff840bd450800000000000000
       internalID: 6114485935416625835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Instructions
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 900
+        width: 110
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1a6ab2fb9d058b10800000000000000
+      internalID: 1983006174369966622
       vertices: []
       indices: 
       edges: []
