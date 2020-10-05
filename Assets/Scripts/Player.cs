@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -10,12 +11,14 @@ public class SerializedPlayer
     public float y;
 
     public float rotation;
+    public string[] keys;
 
-    public SerializedPlayer(float x, float y, float rotation)
+    public SerializedPlayer(float x, float y, float rotation, string[] keys)
     {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
+        this.keys = keys;
     }
 }
 public class Player : Rewindable
@@ -26,11 +29,14 @@ public class Player : Rewindable
     private Coroutine rewinding;
 
     private Vector2Int moveDirection;
+
+    private List<string> keys;
     
     // Start is called before the first frame update
     protected override void Awake()
     {
         base.Awake();
+        keys = new List<string>();
         _inputs = new GameInputs();
         _inputs.Gameplay.Rewind.started += ctx => rewinding = StartCoroutine(nameof(repeatedlyRewind));
         _inputs.Gameplay.Rewind.canceled += ctx =>
@@ -55,7 +61,7 @@ public class Player : Rewindable
 
     public override object save()
     {
-        return new SerializedPlayer(transform.position.x, transform.position.y, transform.rotation.eulerAngles.z);
+        return new SerializedPlayer(transform.position.x, transform.position.y, transform.rotation.eulerAngles.z, keys.ToArray());
     }
 
     public override void loadFrom(object lowered)
@@ -64,6 +70,8 @@ public class Player : Rewindable
         {
             transform.position = new Vector2(deserialized.x, deserialized.y);
             transform.rotation = Quaternion.Euler(0, 0, deserialized.rotation);
+            keys.Clear();
+            keys.AddRange(deserialized.keys);
         }
     }
 
@@ -133,6 +141,11 @@ public class Player : Rewindable
             {
                 if (!movable.Push(direction)) return false;
             }
+            if (results[i].gameObject.HasComponent(out Lock locke))
+            {
+                if (keys.Contains(locke.GetKeyId())) locke.OpenSesame();
+                return false;
+            }
         }
         return true;
     }
@@ -162,6 +175,7 @@ public class Player : Rewindable
 
     public void AddKey(string keyCode)
     {
+        keys.Add(keyCode);
     }
 
     public void TeleportTo(Vector2 destinationPosition)
