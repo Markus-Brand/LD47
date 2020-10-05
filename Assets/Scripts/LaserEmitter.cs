@@ -24,6 +24,8 @@ public class LaserEmitter : Rewindable
     private LaserDetector _lastDetector;
     private bool _foundDetector;
 
+    public Color LaserColor;
+
     private static char DirectionToCharacter(Vector2Int direction)
     {
         if (direction.x == 1) return 'e';
@@ -153,18 +155,23 @@ public class LaserEmitter : Rewindable
         {
             var direction = charToDirection(character);
             Laser newLaser;
+            SpriteRenderer spriteRenderer;
             if (previousCharacter == character)
             {
                 newLaser = Instantiate(LaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
                 newLaser.Emitter = this;
+                spriteRenderer = newLaser.GetComponent<SpriteRenderer>();
                 _laserChildren.Add(newLaser);
             }
             else
             {
                 newLaser = Instantiate(EdgeLaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
-                newLaser.GetComponent<SpriteRenderer>().flipY =
+                spriteRenderer = newLaser.GetComponent<SpriteRenderer>();
+                spriteRenderer.flipY =
                     !previousDirection.Rotate90CounterClockwise().Equals(direction);
             }
+
+            spriteRenderer.color = LaserColor;
             newLaser.Emitter = this;
             _laserChildren.Add(newLaser);
             
