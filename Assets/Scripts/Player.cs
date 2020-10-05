@@ -31,6 +31,9 @@ public class Player : Rewindable
     private Vector2Int moveDirection;
 
     private List<string> keys;
+
+    public AudioSource stepSound;
+    public AudioSource keySound;
     
     // Start is called before the first frame update
     protected override void Awake()
