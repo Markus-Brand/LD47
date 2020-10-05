@@ -62,6 +62,7 @@ public class Player : Rewindable
     private void HideRewindScreen()
     {
         RewindScreen.SetActive(false);
+        rewindSound.Stop();
     }
 
     public override object save()
@@ -119,6 +120,8 @@ public class Player : Rewindable
     private IEnumerator repeatedlyRewind()
     {
         RewindScreen.SetActive(true);
+        rewindSound.pitch = 0.5f;
+        rewindSound.Play();
 
         RewindManager.Rewind();
         float x = 1;
@@ -127,6 +130,7 @@ public class Player : Rewindable
             float waitTime = (float) (0.5 / Math.Sqrt(4 * x));
             yield return new WaitForSeconds(waitTime);
             x += waitTime;
+            rewindSound.pitch = x / 2;
             RewindManager.Rewind();
         }
     }
