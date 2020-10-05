@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: Teleporter
   active: 0
-  loopingDestinationPosition: {x: -55, y: 19}
+  loopingDestinationPosition: {x: -43, y: 19}
   activeTarget: {fileID: 1570272043098723397}
 --- !u!61 &446629961182318333
 BoxCollider2D:
