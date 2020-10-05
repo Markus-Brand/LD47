@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 enum BlockStatus
@@ -20,6 +21,8 @@ public class LaserEmitter : Rewindable
 
     private List<Laser> _laserChildren;
     private Mirror _lastMirror;
+    private LaserDetector _lastDetector;
+    private bool _foundDetector;
 
     private static char DirectionToCharacter(Vector2Int direction)
     {
@@ -45,6 +48,7 @@ public class LaserEmitter : Rewindable
         var currentPosition = new Vector2Int((int) Math.Round(transform.position.x), (int)Math.Round(transform.position.y));
         var direction = _laserDirection;
         var blockStatus = statusAtPosition(currentPosition);
+        _foundDetector = false;
         while (blockStatus != BlockStatus.Blocked)
         {
             if (blockStatus == BlockStatus.Free)
@@ -69,6 +73,15 @@ public class LaserEmitter : Rewindable
             }
             blockStatus = statusAtPosition(currentPosition);
         }
+
+        if (!_foundDetector)
+        {
+            if (_lastDetector != null)
+            {
+                _lastDetector.Depower();
+                _lastDetector = null;
+            }
+        }
         
         RebuildWithDirections(laserString);
     }
@@ -84,20 +97,29 @@ public class LaserEmitter : Rewindable
                 _lastMirror = mirror;
                 return BlockStatus.Mirror;
             }
+            if (result.gameObject.HasComponent(out LaserDetector detector))
+            {
+                _foundDetector = true;
+                if (detector != _lastDetector)
+                {
+                    if (_lastDetector != null)
+                    {
+                        _lastDetector.Depower();
+                    }
 
-            if (!result.isTrigger && result.gameObject != this.gameObject)
+                    _lastDetector = detector;
+                    detector.Power();
+                }
+                return BlockStatus.Free;
+            }
+
+            if (!result.isTrigger && result.gameObject != gameObject)
             {
                 blocked = true;
             }
         }
 
         return blocked ? BlockStatus.Blocked : BlockStatus.Free;
-    }
-
-    private bool isPositionMirror(Vector2Int position)
-    {
-        var results = Physics2D.OverlapBoxAll(position, new Vector2(0.95f, 0.95f), 0.0f);
-        return results.Count(r => r.gameObject.HasComponent<Mirror>()) > 0;
     }
 
     public override void loadFrom(object laserDirections)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LaserDetector : MonoBehaviour
 {
+
+    public Rewindable[] Affected;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,21 @@ public class LaserDetector : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Power()
+    {
+        foreach (var affected in Affected)
+        {
+            affected.LeverOn();
+        }
+    }
+
+    public void Depower()
+    {
+        foreach (var affected in Affected)
+        {
+            affected.LeverOff();
+        }
     }
 }
