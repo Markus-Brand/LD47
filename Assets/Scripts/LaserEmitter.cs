@@ -28,11 +28,11 @@ public class LaserEmitter : Rewindable
             case 0:
                 return Vector2Int.right;
             case 1:
-                return Vector2Int.down;
+                return Vector2Int.up;
             case 2:
                 return Vector2Int.left;
             case 3:
-                return Vector2Int.up;
+                return Vector2Int.down;
             default:
                 return Vector2Int.zero;
         }
