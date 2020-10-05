@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
 
 public class Lever : Rewindable
