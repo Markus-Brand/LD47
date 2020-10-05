@@ -35,6 +35,7 @@ public class Player : Rewindable
     public AudioSource stepSound;
     public AudioSource keySound;
     public AudioSource unlockSound;
+    public AudioSource rewindSound;
     
     // Start is called before the first frame update
     protected override void Awake()
