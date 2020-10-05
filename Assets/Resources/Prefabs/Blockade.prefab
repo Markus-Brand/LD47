@@ -184,6 +184,7 @@ MonoBehaviour:
   LowSprite: {fileID: -9046095728324299325, guid: 40a5a39965bacbf4384da543c212e28f, type: 3}
   HighSprite: {fileID: 7960299501354929935, guid: 40a5a39965bacbf4384da543c212e28f, type: 3}
   InvertedFromComposite: 0
+  pistonRenderer: {fileID: 3011991206524998317}
 --- !u!50 &2540832710377364732
 Rigidbody2D:
   serializedVersion: 4
