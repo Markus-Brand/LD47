@@ -4,39 +4,23 @@ using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
 
+
+enum BlockStatus
+{
+    Blocked, Free, Mirror
+}
 public class LaserEmitter : Rewindable
 {
 
     public Laser LaserPrefab;
+    public Laser EdgeLaserPrefab;
     
     private Vector2Int _laserDirection;
     private string laserDirections;
 
     private List<Laser> _laserChildren;
+    private Mirror _lastMirror;
 
-    private static Vector2Int MainDirection(float eulerAnglesZ)
-    {
-        while (eulerAnglesZ < 0)
-        {
-            eulerAnglesZ += 360;
-        }
-
-        int direction = (int) (Math.Round(eulerAnglesZ / 90)) % 4;
-
-        switch (direction)
-        {
-            case 0:
-                return Vector2Int.right;
-            case 1:
-                return Vector2Int.up;
-            case 2:
-                return Vector2Int.left;
-            case 3:
-                return Vector2Int.down;
-            default:
-                return Vector2Int.zero;
-        }
-    }
     private static char DirectionToCharacter(Vector2Int direction)
     {
         if (direction.x == 1) return 'e';
@@ -49,7 +33,7 @@ public class LaserEmitter : Rewindable
     protected override void Start()
     {
         base.Start();
-        _laserDirection = MainDirection(transform.rotation.eulerAngles.z);
+        _laserDirection = transform.rotation.eulerAngles.z.MainDirection();
         ShootLaser();
     }
 
@@ -60,19 +44,60 @@ public class LaserEmitter : Rewindable
         
         var currentPosition = new Vector2Int((int) Math.Round(transform.position.x), (int)Math.Round(transform.position.y));
         var direction = _laserDirection;
-        while (isPositionFree(currentPosition))
+        var blockStatus = statusAtPosition(currentPosition);
+        while (blockStatus != BlockStatus.Blocked)
         {
-            currentPosition += direction;
-            laserString += DirectionToCharacter(direction);
+            if (blockStatus == BlockStatus.Free)
+            {
+                currentPosition += direction;
+                laserString += DirectionToCharacter(direction);
+            } else if (blockStatus == BlockStatus.Mirror)
+            {
+                if (direction.Equals(_lastMirror.mainInDirection))
+                {
+                    direction = direction.Rotate90Clockwise();
+                } else if (direction.Equals(_lastMirror.mainInDirection.Rotate90CounterClockwise()))
+                {
+                    direction = direction.Rotate90CounterClockwise();
+                }
+                else
+                {
+                    break;
+                }
+                currentPosition += direction;
+                laserString += DirectionToCharacter(direction);
+            }
+            blockStatus = statusAtPosition(currentPosition);
         }
         
         RebuildWithDirections(laserString);
     }
 
-    private bool isPositionFree(Vector2Int position)
+    private BlockStatus statusAtPosition(Vector2Int position)
     {
         var results = Physics2D.OverlapBoxAll(position, new Vector2(0.95f, 0.95f), 0.0f);
-        return results.Count(r => !r.isTrigger && r.gameObject != this.gameObject) == 0;
+        var blocked = false;
+        foreach (var result in results)
+        {
+            if (result.gameObject.HasComponent(out Mirror mirror))
+            {
+                _lastMirror = mirror;
+                return BlockStatus.Mirror;
+            }
+
+            if (!result.isTrigger && result.gameObject != this.gameObject)
+            {
+                blocked = true;
+            }
+        }
+
+        return blocked ? BlockStatus.Blocked : BlockStatus.Free;
+    }
+
+    private bool isPositionMirror(Vector2Int position)
+    {
+        var results = Physics2D.OverlapBoxAll(position, new Vector2(0.95f, 0.95f), 0.0f);
+        return results.Count(r => r.gameObject.HasComponent<Mirror>()) > 0;
     }
 
     public override void loadFrom(object laserDirections)
@@ -102,14 +127,22 @@ public class LaserEmitter : Rewindable
         foreach (var character in laserDirections)
         {
             var direction = charToDirection(character);
-
+            Laser newLaser;
             if (previousCharacter == character)
             {
-                var newLaser = Instantiate(LaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
+                newLaser = Instantiate(LaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
                 newLaser.Emitter = this;
                 _laserChildren.Add(newLaser);
             }
-
+            else
+            {
+                newLaser = Instantiate(EdgeLaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
+                newLaser.GetComponent<SpriteRenderer>().flipY =
+                    !previousDirection.Rotate90CounterClockwise().Equals(direction);
+            }
+            newLaser.Emitter = this;
+            _laserChildren.Add(newLaser);
+            
             currentPosition += direction;
             
             previousDirection = direction;

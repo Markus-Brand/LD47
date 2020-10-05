@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: LaserEmitter
   LaserPrefab: {fileID: 4056356325703018875, guid: c10da6cccfdfe344c888c40efa6ad140, type: 3}
+  EdgeLaserPrefab: {fileID: 8013758635031796566, guid: 1e8212d44cb43154cbbdb42e359ded43, type: 3}
 --- !u!61 &6712447876605665557
 BoxCollider2D:
   m_ObjectHideFlags: 0
