@@ -9,6 +9,7 @@ public class Teleporter : Rewindable
     public Vector2 loopingDestinationPosition;
    
     public GameObject activeTarget;
+    public AudioSource teleportSound;
   
     private Animator _animator;
     private static readonly int Active = Animator.StringToHash("Active");
@@ -27,6 +28,7 @@ public class Teleporter : Rewindable
         if(other.gameObject.HasComponent(out Player player))
         {
             Debug.Log("Teleport");
+            teleportSound.Play();
             player.TeleportTo(GetTargetPosition());
         };
     }

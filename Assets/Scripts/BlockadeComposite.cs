@@ -6,6 +6,7 @@ public class BlockadeComposite : Rewindable
 {
     public bool Lowered;
     public Color color;
+    public AudioSource pistonSound;
 
     private Blockade[] _blockades;
     
@@ -51,12 +52,14 @@ public class BlockadeComposite : Rewindable
     public override void LeverOn()
     {
         Lowered = true;
+        pistonSound.Play();
         SetSprites();
     }
 
     public override void LeverOff()
     {
         Lowered = false;
+        pistonSound.Play();
         SetSprites();
     }
 
