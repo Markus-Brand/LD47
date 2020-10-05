@@ -51,7 +51,6 @@ public class Lever : Rewindable
     public override void loadFrom(object lowered)
     {
         var newState = (bool) lowered;
-        if (newState != on) sound.Play();
         on = newState;
         _animator.SetBool(On, on);
     }

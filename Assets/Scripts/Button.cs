@@ -43,7 +43,6 @@ public class Button : Rewindable
     public override void loadFrom(object lowered)
     {
         var newState = (bool) lowered;
-        if (newState != pressed) sound.Play();
         pressed = newState;
     }
 
