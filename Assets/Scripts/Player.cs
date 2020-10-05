@@ -23,7 +23,6 @@ public class Player : Rewindable
     public GameObject RewindScreen;
     private GameInputs _inputs;
 
-    private Rigidbody2D rigidbody2D;
     private Coroutine rewinding;
 
     private Vector2Int moveDirection;
@@ -32,7 +31,6 @@ public class Player : Rewindable
     protected override void Awake()
     {
         base.Awake();
-        rigidbody2D = GetComponent<Rigidbody2D>();
         _inputs = new GameInputs();
         _inputs.Gameplay.Rewind.started += ctx => rewinding = StartCoroutine(nameof(repeatedlyRewind));
         _inputs.Gameplay.Rewind.canceled += ctx =>
@@ -162,7 +160,7 @@ public class Player : Rewindable
         transform.rotation = delta.AsZRotation(-90);
     }
 
-    public void AddKey()
+    public void AddKey(string keyCode)
     {
     }
 

@@ -18,8 +18,7 @@ public class Key : Rewindable
         if(_rewinding) return;
         if(other.gameObject.HasComponent(out Player player))
         {
-            player.AddKey();
-            Instantiate(prefab);
+            player.AddKey(getId());
             Destroy(gameObject);
         }
     }
