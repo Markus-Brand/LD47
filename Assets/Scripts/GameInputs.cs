@@ -170,7 +170,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""47c05a49-d649-4299-93ee-4b0251640cef"",
-                    ""path"": ""<Keyboard>/g"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
