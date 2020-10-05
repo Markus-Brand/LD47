@@ -8,6 +8,9 @@ public class LaserDetector : MonoBehaviour
 
     public Rewindable[] Affected;
 
+    public AudioSource powerOnSound;
+    public AudioSource powerOffSound;
+
     [HideInInspector] public Vector2Int DetectionDirection;
 
     // Start is called before the first frame update
@@ -28,6 +31,7 @@ public class LaserDetector : MonoBehaviour
         {
             affected.LeverOn();
         }
+        powerOnSound.Play();
     }
 
     public void Depower()
@@ -36,5 +40,6 @@ public class LaserDetector : MonoBehaviour
         {
             affected.LeverOff();
         }
+        powerOffSound.Play();
     }
 }
