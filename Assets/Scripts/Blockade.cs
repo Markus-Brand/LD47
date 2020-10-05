@@ -12,16 +12,6 @@ public class Blockade : Rewindable
     private SpriteRenderer _renderer;
     private Collider2D _collider;
 
-    private int floorSortingLayer;
-    private int objectsSortingLayer;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        floorSortingLayer = SortingLayer.NameToID("Floor");
-        objectsSortingLayer = SortingLayer.NameToID("Objects");
-    }
-
     public void SetSprite(bool lowered)
     {
         bool state = lowered ^ InvertedFromComposite;
@@ -31,7 +21,6 @@ public class Blockade : Rewindable
             _collider = GetComponent<Collider2D>();
         }
         _renderer.sprite = state ? LowSprite : HighSprite;
-        _renderer.sortingLayerID = state ? floorSortingLayer : objectsSortingLayer;
         pistonRenderer.enabled = !state;
         _collider.enabled = !state;
         var results = Physics2D.OverlapBoxAll(transform.position, new Vector2(0.95f, 0.95f), 0.0f);
