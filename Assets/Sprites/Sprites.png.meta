@@ -119,6 +119,12 @@ TextureImporter:
   - first:
       213: 6077751805537155827
     second: DetectorColorIndicator
+  - first:
+      213: -6907802367980946021
+    second: LaserWallVertical
+  - first:
+      213: -5245793276582378072
+    second: LaserWallHorizontal
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1028,7 +1034,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1036,6 +1042,48 @@ TextureImporter:
       bones: []
       spriteID: 3faf70ad013885450800000000000000
       internalID: 6077751805537155827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaserWallVertical
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 976
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9db4ed685e8220a0800000000000000
+      internalID: -6907802367980946021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaserWallHorizontal
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 976
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a5cc20fec23337b0800000000000000
+      internalID: -5245793276582378072
       vertices: []
       indices: 
       edges: []

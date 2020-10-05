@@ -118,7 +118,7 @@ public class LaserEmitter : Rewindable
                 return BlockStatus.Free;
             }
 
-            if (!result.isTrigger && result.gameObject != gameObject)
+            if (!result.isTrigger && result.gameObject != gameObject && !result.gameObject.HasComponent<LaserWall>())
             {
                 blocked = true;
             }
