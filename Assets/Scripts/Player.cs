@@ -157,6 +157,7 @@ public class Player : Rewindable
     {
         //TODO: Animate this here
         transform.position = new Vector3(target.x, target.y, 0);
+        stepSound.Play();
         Invoke(nameof(Save), 0.1f);
     }
 
@@ -178,6 +179,7 @@ public class Player : Rewindable
 
     public void AddKey(string keyCode)
     {
+        keySound.Play();
         keys.Add(keyCode);
     }
 
