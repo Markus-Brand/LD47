@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -39,7 +40,7 @@ public class Movable : Rewindable
     private bool CanMoveTo(Vector2Int target)
     {
         var results = Physics2D.OverlapBoxAll(target, new Vector2(0.95f, 0.95f), 0.0f);
-        return results.Length == 0;
+        return results.Count(r => !r.isTrigger) == 0;
     }
     
     private void MoveTo(Vector2Int target)
