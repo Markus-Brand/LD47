@@ -24,6 +24,8 @@ public class LaserEmitter : Rewindable
     private LaserDetector _lastDetector;
     private bool _foundDetector;
 
+    public Color LaserColor;
+
     private static char DirectionToCharacter(Vector2Int direction)
     {
         if (direction.x == 1) return 'e';
@@ -47,7 +49,7 @@ public class LaserEmitter : Rewindable
         
         var currentPosition = new Vector2Int((int) Math.Round(transform.position.x), (int)Math.Round(transform.position.y));
         var direction = _laserDirection;
-        var blockStatus = statusAtPosition(currentPosition);
+        var blockStatus = statusAtPosition(currentPosition, direction);
         _foundDetector = false;
         while (blockStatus != BlockStatus.Blocked)
         {
@@ -71,7 +73,7 @@ public class LaserEmitter : Rewindable
                 currentPosition += direction;
                 laserString += DirectionToCharacter(direction);
             }
-            blockStatus = statusAtPosition(currentPosition);
+            blockStatus = statusAtPosition(currentPosition, direction);
         }
 
         if (!_foundDetector)
@@ -86,7 +88,7 @@ public class LaserEmitter : Rewindable
         RebuildWithDirections(laserString);
     }
 
-    private BlockStatus statusAtPosition(Vector2Int position)
+    private BlockStatus statusAtPosition(Vector2Int position, Vector2Int direction)
     {
         var results = Physics2D.OverlapBoxAll(position, new Vector2(0.95f, 0.95f), 0.0f);
         var blocked = false;
@@ -100,15 +102,18 @@ public class LaserEmitter : Rewindable
             if (result.gameObject.HasComponent(out LaserDetector detector))
             {
                 _foundDetector = true;
-                if (detector != _lastDetector)
+                if (detector.DetectionDirection.Equals(-direction))
                 {
-                    if (_lastDetector != null)
+                    if (detector != _lastDetector)
                     {
-                        _lastDetector.Depower();
-                    }
+                        if (_lastDetector != null)
+                        {
+                            _lastDetector.Depower();
+                        }
 
-                    _lastDetector = detector;
-                    detector.Power();
+                        _lastDetector = detector;
+                        detector.Power();
+                    }
                 }
                 return BlockStatus.Free;
             }
@@ -150,18 +155,23 @@ public class LaserEmitter : Rewindable
         {
             var direction = charToDirection(character);
             Laser newLaser;
+            SpriteRenderer spriteRenderer;
             if (previousCharacter == character)
             {
                 newLaser = Instantiate(LaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
                 newLaser.Emitter = this;
+                spriteRenderer = newLaser.GetComponent<SpriteRenderer>();
                 _laserChildren.Add(newLaser);
             }
             else
             {
                 newLaser = Instantiate(EdgeLaserPrefab, new Vector3(currentPosition.x, currentPosition.y), direction.AsZRotation(), transform);
-                newLaser.GetComponent<SpriteRenderer>().flipY =
+                spriteRenderer = newLaser.GetComponent<SpriteRenderer>();
+                spriteRenderer.flipY =
                     !previousDirection.Rotate90CounterClockwise().Equals(direction);
             }
+
+            spriteRenderer.color = LaserColor;
             newLaser.Emitter = this;
             _laserChildren.Add(newLaser);
             
